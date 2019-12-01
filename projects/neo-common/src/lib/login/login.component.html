@@ -1,0 +1,58 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title  style="margin-left: 126px">
+        User Login
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form #form="ngForm" class="form" (ngSubmit)="onSubmitForm(form)">
+      <div class="example-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" name="email" #email="ngModel" placeholder="Email" minlength="4" maxlength="50"
+            pattern="^.+@[^\.].*\.[a-z]{2,}$" [(ngModel)]="loginObj.email" required>
+          <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+            <mat-error *ngIf="email.errors?.required">
+              Email is required
+            </mat-error>
+            <mat-error *ngIf="email.errors?.pattern">
+              Invalid email
+            </mat-error>
+          </mat-error>
+          <mat-error *ngIf="email.pristine && email.untouched">
+            <mat-error *ngIf="!isValid">
+              Email is required
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput #pwd="ngModel" name="pwd" placeholder="Password" minlength="8" maxlength="16"
+            [(ngModel)]="loginObj.pwd" [type]="hide ? 'password' : 'text'" required>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <mat-hint align="end">{{pwd.value?.length || 0}}/16</mat-hint>
+          <mat-error *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)">
+            <mat-error *ngIf="pwd.errors?.required">
+              Password is required
+            </mat-error>
+            <mat-error *ngIf="pwd.errors?.minlength">
+              Password should be atleast 8 char
+            </mat-error>
+          </mat-error>
+          <mat-error *ngIf="pwd.pristine && pwd.untouched">
+            <mat-error *ngIf="!isValid">
+              Password is required
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="login()">Sign In</button>
+        <mat-card-actions>
+              <mat-checkbox class="remember-text">Remember Me</mat-checkbox>
+              <a routerLink="/forgot" class="forget-pwd">Forgot Password?</a>
+        </mat-card-actions>
+      </div>
+    </form>    
+  <hr>
+  <p>Don't have an account?<a routerLink="/signup"><strong>Sign Up</strong></a></p>
+  </mat-card-content>
+</mat-card>

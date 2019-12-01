@@ -2,5 +2,181 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "neo-common": {
+      "root": "projects/neo-common",
+      "sourceRoot": "projects/neo-common/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/neo-common/tsconfig.lib.json",
+            "project": "projects/neo-common/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/neo-common/src/test.ts",
+            "tsConfig": "projects/neo-common/tsconfig.spec.json",
+            "karmaConfig": "projects/neo-common/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/neo-common/tsconfig.lib.json",
+              "projects/neo-common/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "neosights": {
+      "root": "projects/neosights/",
+      "sourceRoot": "projects/neosights/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/neosights",
+            "index": "projects/neosights/src/index.html",
+            "main": "projects/neosights/src/main.ts",
+            "polyfills": "projects/neosights/src/polyfills.ts",
+            "tsConfig": "projects/neosights/tsconfig.app.json",
+            "assets": [
+              "projects/neosights/src/favicon.ico",
+              "projects/neosights/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/neosights/src/styles.scss"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/neosights/src/environments/environment.ts",
+                  "with": "projects/neosights/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "neosights:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "neosights:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "neosights:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/neosights/src/test.ts",
+            "polyfills": "projects/neosights/src/polyfills.ts",
+            "tsConfig": "projects/neosights/tsconfig.spec.json",
+            "karmaConfig": "projects/neosights/karma.conf.js",
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/neosights/src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/neosights/src/favicon.ico",
+              "projects/neosights/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/neosights/tsconfig.app.json",
+              "projects/neosights/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "neosights-e2e": {
+      "root": "projects/neosights-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/neosights-e2e/protractor.conf.js",
+            "devServerTarget": "neosights:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "neosights:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/neosights-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "neosights"
 }

@@ -1,0 +1,42 @@
+.card {
+    max-width: 400px;
+    margin: 30px auto;
+  }
+  
+  .example-header-image {
+    margin: 20px auto;
+  }
+  
+  .example-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+  p{
+     text-align: center
+  }
+  .green-snackbar{
+    background: darkgreen;
+    color: royalblue
+  }
+  .red-snackbar{
+    background:darkred;
+    color: blueviolet
+  }
+  .remember-text {
+    padding-left: 8px;
+  }
+  .forget-pwd{
+    margin-left: 80px
+  }
+  p{
+    text-align: center
+  }
+  .form{
+    margin-bottom: 50px
+  }
